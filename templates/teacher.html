@@ -1,0 +1,87 @@
+{% extends 'base.html' %} {% load static simple_tags %} {% block main %}
+
+<!-- page title -->
+<section class="page-title-section overlay" data-background="{% static 'images/backgrounds/page-title.jpg' %}">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <ul class="list-inline custom-breadcrumb mb-2">
+          <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="{% url 'home' %}">Home</a></li>
+          <li class="list-inline-item text-white h3 font-secondary nasted">Our teacher</li>
+        </ul>
+        <p class="text-lighten mb-0">Our courses offer a good compromise between the continuous assessment favoured by some universities and the emphasis placed on final exams by others.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /page title -->
+
+<!-- teachers -->
+<section class="section">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <!-- teacher category list -->
+        <ul class="list-inline text-center filter-controls mb-5">
+          
+          <li class="list-inline-item m-3 text-uppercase active"><a href="{% url 'teachers' %}">All</a></li>
+          {% global_category as category%}
+          {% for i in category %}
+            <li class="list-inline-item m-3 text-uppercase active"><a href="{% url 'teachers_slug' i.slug %}">{{i}}</a></li>
+          {% endfor %}   
+          
+        </ul>
+      </div>
+    </div>
+    <!-- teacher list -->
+    <div class="row filtr-container">
+      
+      {% for i in teachers %}
+      
+      <!-- teacher -->
+      <div class="col-lg-4 col-sm-6 mb-5 mb-lg-0">
+        <div class="card border-0 rounded-0 hover-shadow">
+          <img
+            class="card-img-top rounded-0"
+            src="{{i.cover_img.url}}"
+            alt="teacher"
+          />
+          <div class="card-body">
+            <a href="{% url 'teacher_single' i.slug %}">
+              <h4 class="card-title">{{i.first_name}} {{i.last_name}}</h4>
+            </a>
+            <a href="{% url 'courses_slug' i.category.slug %}" ><p>{{i.category}}</p></a>
+            <ul class="list-inline">
+              <li class="list-inline-item">
+                <a class="text-color" href="{{i.facebook}}"
+                  ><i class="ti-facebook"></i
+                ></a>
+              </li>
+              <li class="list-inline-item">
+                <a class="text-color" href="{{i.twitter}}"
+                  ><i class="ti-twitter-alt"></i
+                ></a>
+              </li>
+              <li class="list-inline-item">
+                <a class="text-color" href="{{i.google}}"
+                  ><i class="ti-google"></i
+                ></a>
+              </li>
+              <li class="list-inline-item">
+                <a class="text-color" href="{{i.linkedin}}"
+                  ><i class="ti-linkedin"></i
+                ></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      {% endfor %}
+      
+    </div>
+  </div>
+</section>
+<!-- /teachers -->
+
+{% endblock main %}

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+<style>
+  .forgot-password{
+    float: right;
+  }  
+</style>
+{% endblock style %}
+
+{% block main %}
+
+<!-- page title -->
+<section class="page-title-section overlay" data-background="{% static 'images/backgrounds/page-title.jpg' %}">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <ul class="list-inline custom-breadcrumb mb-2">
+          <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="{% url 'home' %}">Home</a></li>
+          <li class="list-inline-item text-white h3 font-secondary nasted">Login</li>
+        </ul>
+        <p class="text-lighten mb-0">Our courses offer a good compromise between the continuous assessment favoured by some universities and the emphasis placed on final exams by others.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /page title -->
+
+<!-- Change Password -->
+<section class="ftco-section contact-section register">
+  <div class="container">
+      <div class="row block-9 justify-content-center">
+          <div class="col-md-6 order-md-last d-flex">
+            <form action="#" class="bg-light p-5 contact-form" method="POST" enctype="multipart/form-data">
+                <a class="navbar-brand center" href="#">Create Blog</a>
+
+                {% csrf_token %}
+
+                {% for i in forms %}
+                    <div class="form-group">
+                        {{ i }}
+                    </div>
+                {% endfor %}
+
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary py-3 px-5">
+                </div>
+            </form>
+          </div>
+      </div>
+  </div>
+</section>
+<!-- /Change Password -->
+
+
+{% endblock main %}

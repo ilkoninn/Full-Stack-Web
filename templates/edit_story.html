@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+<style>
+  .forgot-password{
+    float: right;
+  }  
+</style>
+{% endblock style %}
+
+{% block main %}
+
+<!-- page title -->
+<section class="page-title-section overlay" data-background="{% static 'images/backgrounds/page-title.jpg' %}">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <ul class="list-inline custom-breadcrumb mb-2">
+          <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="{% url 'home' %}">Home</a></li>
+          <li class="list-inline-item text-white h3 font-secondary nasted">Login</li>
+        </ul>
+        <p class="text-lighten mb-0">Our courses offer a good compromise between the continuous assessment favoured by some universities and the emphasis placed on final exams by others.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /page title -->
+
+<!-- Change Password -->
+<section class="ftco-section contact-section register">
+  <div class="container">
+      <div class="row block-9 justify-content-center">
+          <div class="col-md-6 order-md-last d-flex">
+            <form action="#" class="bg-light p-5 contact-form" method="POST" enctype="multipart/form-data">
+                <a class="navbar-brand center" href="#">Edit Blog</a><br><br>
+
+                {% csrf_token %}
+                 
+                <h3>Title Section</h3><br>
+                <h4 class="card-title">{{blog_data.title}}</h4>
+                <div class="form-group">
+                    {{ forms.title }}
+                </div>
+                <h3>Description Section</h3><br>
+                <h4 class="card-title">{{blog_data.desc}}</h4><br>
+                <div class="form-group">
+                    {{ forms.desc }}
+                </div>
+                <h3>Short Description Section</h3><br>
+                <h4 class="card-title">{{blog_data.short_desc}}</h4><br>
+                <div class="form-group">
+                    {{ forms.short_desc }}
+                </div>
+                <h3>Image Section</h3><br>
+                <img src="{{blog_data.img.url}}" alt="Post Image" style="margin-bottom: 20px"><br>
+                <div class="form-group">
+                    {{ forms.img }}
+                </div>
+                <h3>Cover Image Section</h3><br>
+                <img src="{{blog_data.cover_img.url}}" alt="Post Cover Image" style="margin-bottom: 20px"><br>
+                <div class="form-group">
+                    {{ forms.cover_img }}
+                </div>          
+                
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary py-3 px-5">
+                </div>
+            </form>
+          </div>
+      </div>
+  </div>
+</section>
+<!-- /Change Password -->
+
+
+{% endblock main %}

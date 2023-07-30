@@ -1,0 +1,60 @@
+{% extends 'base.html' %} {% load static %} 
+
+{% block style %}
+
+<style>
+  .teacher-tag{
+    color: #1e1e4b;
+    text-decoration: none;
+  }
+</style>
+
+{% endblock style %}
+
+{% block main %}
+
+<!-- page title -->
+<section class="page-title-section overlay" data-background="{% static 'images/backgrounds/page-title.jpg' %}">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <ul class="list-inline custom-breadcrumb mb-2">
+          <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="{% url 'home' %}">Home</a></li>
+          <li class="list-inline-item text-white h3 font-secondary nasted">Research</li>
+        </ul>
+        <p class="text-lighten mb-0">Our courses offer a good compromise between the continuous assessment favoured by some universities and the emphasis placed on final exams by others.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /page title -->
+
+<!-- research -->
+<section class="section">
+  <div class="container">
+    <div class="row">
+      
+      {% for i in researchs %}
+
+      <!-- recharch item -->
+      <div class="col-lg-4 col-sm-6 mb-4">
+        <div class="card rounded-0 hover-shadow border-top-0 border-left-0 border-right-0">
+          <img class="card-img-top rounded-0" src="{{i.cover_img.url}}" alt="research thumb">
+          <div class="card-body">
+            <h4 class="card-title"><a class="teacher-tag" href="{% url 'courses_slug' i.title.slug %}">{{i.title}}</a></h4>
+            <p class="card-text">
+              {{i.desc}}
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      
+      {% endfor %}
+      
+    </div>
+  </div>
+</section>
+<!-- /research -->
+
+{% endblock main %}

@@ -1,0 +1,141 @@
+{% extends 'base.html' %} {% load static simple_tags %} {% block main %}
+
+<!-- page title -->
+<section
+  class="page-title-section overlay"
+  data-background="{% static 'images/backgrounds/page-title.jpg' %}"
+>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <ul class="list-inline custom-breadcrumb mb-2">
+          <li class="list-inline-item">
+            <a class="h2 text-primary font-secondary" href="{% url 'home' %}">Home</a>
+          </li>
+          <li class="list-inline-item text-white h3 font-secondary nasted">
+            Our Courses
+          </li>
+        </ul>
+        <p class="text-lighten mb-0">
+          {{course.short_desc}}
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /page title -->
+
+<!-- courses -->
+<section class="section">
+  <div class="container">
+    <div class="row" >
+      <div class="col-12">
+        <!-- teacher category list -->
+        <ul class="list-inline text-center filter-controls mb-5">
+          <li class="list-inline-item m-3 text-uppercase active"><a href="{% url 'courses' %}">All</a></li>
+          
+          {% global_category as category%}
+          
+          
+          {% for i in category %}
+            <li class="list-inline-item m-3 text-uppercase active"><a href="{% url 'courses_slug' i.slug %}">{{i}}</a></li>
+          {% endfor %}
+
+          
+          
+        </ul>
+      </div>
+    </div>
+    <!-- course list -->
+    <div class="row justify-content-center" id="courses">
+      
+      {% for i in courses %}
+      
+      <!-- course item -->
+      <div class="col-lg-4 col-sm-6 mb-5">
+        <div class="card p-0 border-primary rounded-0 hover-shadow">
+          <img
+            class="card-img-top rounded-0"
+            src="{{ i.cover_img.url }}"
+            alt="course thumb"
+          />
+          <div class="card-body">
+            <ul class="list-inline mb-2">
+              <li class="list-inline-item">
+                <i class="ti-calendar mr-1 text-color"></i>{{i.date|date:"d-m-Y"}}<br>
+              </li>
+              <li class="list-inline-item">
+                <a class="text-color" href="{% url 'courses_slug' i.category.slug %}">{{i.category}}</a>
+              </li>
+            </ul>
+            <a href="{% url 'course_single' i.slug %}">
+              <h4 class="card-title">{{i.title}}</h4>
+            </a>
+            <p class="card-text mb-4">
+              {{i.short_desc}}
+            </p>
+            <a href="{% url 'course_single' i.slug %}" class="btn btn-primary btn-sm"
+              >Apply now</a
+            >
+          </div>
+        </div>
+      </div>
+
+      {% endfor %}
+      
+      
+    </div>
+    <!-- /course list -->
+  </div>
+</section>
+<!-- /courses -->
+
+{% comment %} {% block js %}
+
+<script>
+  let courses = document.getElementById('courses');
+
+        fetch('http://127.0.0.1:8000/api/courses/').then((data)=>{
+            return data.json();
+        }).then((data)=>{
+            for(let i of data){
+                courses.insertAdjacentHTML("beforeend", `
+                <div class="col-lg-4 col-sm-6 mb-5">
+                  <div class="card p-0 border-primary rounded-0 hover-shadow">
+                    <img
+                      class="card-img-top rounded-0"
+                      src="${i.cover_img}"
+                      alt="course thumb"
+                    />
+                    <div class="card-body">
+                      <ul class="list-inline mb-2">
+                        <li class="list-inline-item">
+                          <i class="ti-calendar mr-1 text-color"></i>${i.date}<br>
+                        </li>
+                        <li class="list-inline-item">
+                          <a class="text-color" href="http://127.0.0.1:8000/courses/${i.category.slug}">${i.category}</a>
+                        </li>
+                      </ul>
+                      <a href="http://127.0.0.1:8000/courses/${i.slug}">
+                        <h4 class="card-title">${i.title}</h4>
+                        ${i.category.slug}
+                        ${i.slug}
+                      </a>
+                      <p class="card-text mb-4">
+                        ${i.short_desc}
+                      </p>
+                      <a href="http://127.0.0.1:8000/courses/${i.slug}" class="btn btn-primary btn-sm"
+                        >Apply now</a
+                      >
+                    </div>
+                  </div>
+                </div>
+                `)
+            }
+        })
+</script>
+
+{% endblock js %} {% endcomment %}
+
+
+{% endblock main %}

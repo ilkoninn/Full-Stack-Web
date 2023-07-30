@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block main %}
+
+<!-- page title -->
+<section class="page-title-section overlay" data-background="{% static 'images/backgrounds/page-title.jpg' %}">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <ul class="list-inline custom-breadcrumb mb-2">
+          <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="{% url 'home' %}">Home</a></li>
+          <li class="list-inline-item text-white h3 font-secondary nasted">Login</li>
+        </ul>
+        <p class="text-lighten mb-0">Our courses offer a good compromise between the continuous assessment favoured by some universities and the emphasis placed on final exams by others.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /page title -->
+
+<!-- Register -->
+<section class="section bg-gray">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <h2 class="section-title">Register</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-7 mb-4 mb-lg-0">
+        <form action="" method="POST">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-danger" role="alert">
+                    {{message.message}}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {% csrf_token %}
+        
+        {% for i in forms %}
+            <div class="form-group">
+                {{ i }}
+            </div>
+        {% endfor %}
+        
+        <div class="form-group">
+            <input type="submit" value="Register" class="btn btn-primary py-3 px-5">
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /Register -->
+
+
+{% endblock main %}
+
+

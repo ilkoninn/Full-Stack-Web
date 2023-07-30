@@ -1,0 +1,457 @@
+{% load static simple_tags %}
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Educenter - Education HTML Template</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="Construction Html5 Template" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=5.0"
+    />
+    <meta name="author" content="Themefisher" />
+    <meta name="generator" content="Themefisher Educenter HTML Template v1.0" />
+
+    <link
+      rel="stylesheet"
+      href="{% static 'plugins/bootstrap/bootstrap.min.css' %}"
+    />
+    <link rel="stylesheet" href="{% static 'plugins/slick/slick.css' %}" />
+    <link
+      rel="stylesheet"
+      href="{% static 'plugins/themify-icons/themify-icons.css' %}"
+    />
+    <link rel="stylesheet" href="{% static 'plugins/animate/animate.css' %}" />
+    <link rel="stylesheet" href="{% static 'plugins/aos/aos.css' %}" />
+    <link rel="stylesheet" href="{% static 'plugins/venobox/venobox.css' %}" />
+
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+
+    <link
+      rel="shortcut icon"
+      href="{% static 'images/favicon.png' %}"
+      type="image/x-icon"
+    />
+    <link
+      rel="icon"
+      href="{% static 'images/favicon.png' %}"
+      type="image/x-icon"
+    />
+
+    {% block style %}
+    {% endblock style %}
+
+  </head>
+
+  <body>
+    <div class="preloader">
+      <img src="{% static 'images/preloader.gif' %}" alt="preloader" />
+    </div>
+    <!-- preloader end -->
+
+    <!-- header -->
+    <header class="fixed-top header">
+      <!-- top header -->
+      <div class="top-header py-2 bg-white">
+        <div class="container">
+          <div class="row no-gutters">
+            <div class="col-lg-4 text-center text-lg-left">
+              <a class="text-color mr-3" href="tel:+443003030266"
+                ><strong>CALL</strong> +994 70 660 00 17</a
+              >
+              <ul class="list-inline d-inline">
+                <li class="list-inline-item mx-0">
+                  <a
+                    class="d-inline-block p-2 text-color"
+                    href="https://facebook.com/themefisher/"
+                    ><i class="ti-facebook"></i
+                  ></a>
+                </li>
+                <li class="list-inline-item mx-0">
+                  <a
+                    class="d-inline-block p-2 text-color"
+                    href="https://twitter.com/themefisher"
+                    ><i class="ti-twitter-alt"></i
+                  ></a>
+                </li>
+                <li class="list-inline-item mx-0">
+                  <a
+                    class="d-inline-block p-2 text-color"
+                    href="https://github.com/themefisher"
+                    ><i class="ti-github"></i
+                  ></a>
+                </li>
+                <li class="list-inline-item mx-0">
+                  <a
+                    class="d-inline-block p-2 text-color"
+                    href="https://instagram.com/themefisher/"
+                    ><i class="ti-instagram"></i
+                  ></a>
+                </li>
+              </ul>
+            </div>
+            <div class="col-lg-8 text-center text-lg-right">
+              <ul class="list-inline">
+                <li class="list-inline-item">
+                  <a
+                    class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block"
+                    href="{% url 'notices' %}"
+                    >notice</a
+                  >
+                </li>
+                <li class="list-inline-item">
+                  <a
+                    class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block"
+                    href="{% url 'research' %}"
+                    >research</a
+                  >
+                </li>
+                <li class="list-inline-item">
+                  <a
+                    class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block"
+                    href="{% url 'scholarship' %}"
+                    >SCHOLARSHIP</a
+                  >
+                </li>
+                {% if user.is_authenticated %}
+                <li class="list-inline-item">
+                  <a
+                    class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block"
+                    href="{% url 'profile' %}"
+                    >Profile</a
+                  >
+                </li>
+                <li class="list-inline-item">
+                  <a
+                    class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block"
+                    href="{% url 'logout' %}"
+                    >logout</a
+                  >
+                </li>
+                {% else %}
+                <li class="list-inline-item">
+                  <a
+                    class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block"
+                    href="{% url 'login' %}"
+                    >login</a
+                  >
+                </li>
+                <li class="list-inline-item">
+                  <a
+                    class="text-uppercase text-color p-sm-2 py-2 px-0 d-inline-block"
+                    href="{% url 'register' %}"
+                    >register</a
+                  >
+                </li>
+                {% endif %}
+                
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- navbar -->
+      <div class="navigation w-100">
+        <div class="container">
+          <nav class="navbar navbar-expand-lg navbar-dark p-0">
+            {% comment %} <a class="navbar-brand" href="index.html"
+              ><img src="{% static 'images/logo.png' %}" alt="logo"
+            /></a> {% endcomment %}
+            <button
+              class="navbar-toggler rounded-0"
+              type="button"
+              data-toggle="collapse"
+              data-target="#navigation"
+              aria-controls="navigation"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navigation">
+              <ul class="navbar-nav ml-auto text-center">
+                <li class="nav-item {% if request.path == "/" %}active{% endif %}">
+                  <a class="nav-link" href="{% url 'home' %}">Home</a>
+                </li>
+                <li class="nav-item {% if request.path == "/about/" %}active{% endif %}">
+                  <a class="nav-link" href="{% url 'about' %}">About</a>
+                </li>
+                <li class="nav-item {% if request.path == "/courses/" %}active{% endif %}">
+                  <a class="nav-link" href="{% url 'courses' %}">COURSES</a>
+                </li>
+                <li class="nav-item {% if request.path == "/events/" %}active{% endif %}">
+                  <a class="nav-link" href="{% url 'events' %}">EVENTS</a>
+                </li>
+                <li class="nav-item {% if request.path == "/blogs/" %}active{% endif %}">
+                  <a class="nav-link" href="{% url 'blogs' %}">BLOG</a>
+                </li>
+                <li class="nav-item {% if request.path == "/teachers/" %}active{% endif %}">
+                  <a class="nav-link" href="{% url 'teachers' %}">TEACHER</a>
+                </li>
+                <li class="nav-item {% if request.path == "/contact/" %}active{% endif %}">
+                  <a class="nav-link" href="{% url 'contact' %}">CONTACT</a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </header>
+    <!-- /header -->
+
+    {% block main %} {% endblock main %}
+
+    <!-- footer -->
+    <footer>
+      {% if user.is_authenticated %}
+      
+      {% else %}
+      
+      <!-- newsletter -->
+      <div class="newsletter">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-9 ml-auto bg-primary py-5 newsletter-block">
+              <h3 class="text-white">Subscribe Now</h3>
+              <form action="" class="subscribe-form" onsubmit="return send(this)" method="post">
+                {% csrf_token %}
+                <div class="input-wrapper">
+                  {% global_form as form %}
+                  <div class="alert alert-success" id="alert" role="alert" style="display: none;"></div>
+                  {{ form.email}}
+                  <button type="submit" value="send" class="btn btn-primary">Join</button>
+                </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% endif %}
+      <!-- footer content -->
+      <div class="footer bg-footer section border-bottom">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-4 col-sm-8 mb-5 mb-lg-0">
+              <!-- logo -->
+              <a class="logo-footer" href="index.html"
+                ><img
+                  class="img-fluid mb-4"
+                  src="{% static 'images/logo.png' %}"
+                  alt="logo"
+              /></a>
+              <ul class="list-unstyled">
+                <li class="mb-2">
+                  23621 15 Mile Rd #C104, Clinton MI, 48035, New York, USA
+                </li>
+                <li class="mb-2">+1 (2) 345 6789</li>
+                <li class="mb-2">+1 (2) 345 6789</li>
+                <li class="mb-2">contact@yourdomain.com</li>
+              </ul>
+            </div>
+            <!-- company -->
+            <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-5 mb-md-0">
+              <h4 class="text-white mb-5">COMPANY</h4>
+              <ul class="list-unstyled">
+                <li class="mb-3">
+                  <a class="text-color" href="{% url 'about' %}">About Us</a>
+                </li>
+                <li class="mb-3">
+                  <a class="text-color" href="{% url 'teachers' %}"
+                    >Our Teacher</a
+                  >
+                </li>
+                <li class="mb-3">
+                  <a class="text-color" href="{% url 'contact' %}">Contact</a>
+                </li>
+                <li class="mb-3">
+                  <a class="text-color" href="{% url 'blogs' %}">Blog</a>
+                </li>
+              </ul>
+            </div>
+            <!-- links -->
+            <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-5 mb-md-0">
+              <h4 class="text-white mb-5">LINKS</h4>
+              <ul class="list-unstyled">
+                <li class="mb-3">
+                  <a class="text-color" href="{% url 'courses' %}">Courses</a>
+                </li>
+                <li class="mb-3">
+                  <a class="text-color" href="{% url 'events' %}">Events</a>
+                </li>
+                <li class="mb-3">
+                  <a class="text-color" href="{% url 'notices' %}">Notice</a>
+                </li>
+                <li class="mb-3">
+                  <a class="text-color" href="{% url 'scholarship' %}"
+                    >Scholarship</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <!-- support -->
+            <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-5 mb-md-0">
+              <h4 class="text-white mb-5">SUPPORT</h4>
+              <ul class="list-unstyled">
+                <li class="mb-3">
+                  <a class="text-color" href="https://themefisher.com/blog"
+                    >Forums</a
+                  >
+                </li>
+                <li class="mb-3">
+                  <a class="text-color" href="https://docs.themefisher.com/"
+                    >Documentation</a
+                  >
+                </li>
+                <li class="mb-3">
+                  <a class="text-color" href="#!">Language</a>
+                </li>
+                <li class="mb-3">
+                  <a class="text-color" href="#!">Release Status</a>
+                </li>
+              </ul>
+            </div>
+            <!-- support -->
+            <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-5 mb-md-0">
+              <h4 class="text-white mb-5">RECOMMEND</h4>
+              <ul class="list-unstyled">
+                <li class="mb-3">
+                  <a class="text-color" href="https://themefisher.com/"
+                    >WordPress</a
+                  >
+                </li>
+                <li class="mb-3">
+                  <a class="text-color" href="https://themefisher.com/"
+                    >LearnPress</a
+                  >
+                </li>
+                <li class="mb-3">
+                  <a class="text-color" href="https://themefisher.com/"
+                    >WooCommerce</a
+                  >
+                </li>
+                <li class="mb-3">
+                  <a class="text-color" href="https://themefisher.com/"
+                    >bbPress</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- copyright -->
+      <div class="copyright py-4 bg-footer">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-7 text-sm-left text-center">
+              <p class="mb-0">Made by Ilkin Recebov :D</p>
+            </div>
+            <div class="col-sm-5 text-sm-right text-center">
+              <ul class="list-inline">
+                <li class="list-inline-item">
+                  <a
+                    class="d-inline-block p-2"
+                    href="https://facebook.com/themefisher/"
+                    ><i class="ti-facebook text-primary"></i
+                  ></a>
+                </li>
+                <li class="list-inline-item">
+                  <a
+                    class="d-inline-block p-2"
+                    href="https://twitter.com/themefisher"
+                    ><i class="ti-twitter-alt text-primary"></i
+                  ></a>
+                </li>
+                <li class="list-inline-item">
+                  <a
+                    class="d-inline-block p-2"
+                    href="https://github.com/themefisher"
+                    ><i class="ti-github text-primary"></i
+                  ></a>
+                </li>
+                <li class="list-inline-item">
+                  <a
+                    class="d-inline-block p-2"
+                    href="https://instagram.com/themefisher/"
+                    ><i class="ti-instagram text-primary"></i
+                  ></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- /footer -->
+
+    <!-- jQuery -->
+    <script src="{% static 'plugins/jQuery/jquery.min.js' %}"></script>
+    <!-- Bootstrap JS -->
+    <script src="{% static 'plugins/bootstrap/bootstrap.min.js' %}"></script>
+    '
+    <!-- slick slider -->
+    <script src="{% static 'plugins/slick/slick.min.js' %}"></script>
+    <!-- aos -->
+    <script src="{% static 'plugins/aos/aos.js' %}"></script>
+    <!-- venobox popup -->
+    <script src="{% static 'plugins/venobox/venobox.min.js' %}"></script>
+    <!-- filter -->
+    <script src="{% static 'plugins/filterizr/jquery.filterizr.min.js' %}"></script>
+    <!-- google map -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU"></script>
+    <script src="{% static 'plugins/google-map/gmap.js' %}"></script>
+
+    <!-- Main Script -->
+    <script src="{% static 'js/script.js' %}"></script>
+
+    <script>
+      function send(param){
+        const token = param.elements[0].value;
+        const email = param.elements[1].value;
+        let alertMessage = document.getElementById('alert');
+        let allowEmail = ['gmail.com', 'mail.ru'];
+
+        const xhttp = new XMLHttpRequest();
+        xhttp.open('POST', 'http://127.0.0.1:8000/subscribe/')
+        xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+        xhttp.setRequestHeader('X-CSRFToken', token)
+        xhttp.addEventListener('load', (e)=>{
+
+            let message = JSON.parse(e.target.response);
+            alertMessage.style.display = 'block'
+
+            if(e.target.status == 201){
+                alertMessage.innerHTML = message.message
+                alertMessage.setAttribute('class', 'alert alert-success')
+
+            }
+            else{
+                alertMessage.innerHTML = message.message.email[0];
+                alertMessage.setAttribute('class', 'alert alert-danger')
+
+            }
+        })
+        let a = email.split('@')[1];
+        if (!allowEmail.includes(a)){
+            alertMessage.innerHTML = 'Desteklenmeyen eamil format';
+            alertMessage.setAttribute('class', 'alert alert-danger')
+        }
+        else{
+            console.log('else run')
+            xhttp.send(`email=${email}`)
+        }
+
+        return false;
+    }
+    </script>
+
+    {% block js %}
+    {% endblock js %}
+
+  </body>
+</html>

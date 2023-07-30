@@ -1,0 +1,199 @@
+{% extends 'base.html' %} {% load static %} 
+
+{% block style %}
+
+<style>
+  .teacher-tag{
+    color: #1e1e4b;
+    text-decoration: none;
+  }
+</style>
+{% endblock style %}
+
+{% block main %}
+
+<!-- page title -->
+<section
+  class="page-title-section overlay"
+  data-background="{% static 'images/backgrounds/page-title.jpg' %}"
+>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <ul class="list-inline custom-breadcrumb mb-2">
+          <li class="list-inline-item">
+            <a class="h2 text-primary font-secondary" href="{% url 'events' %}"
+              >Upcoming Events</a
+            >
+          </li>
+          <li class="list-inline-item text-white h3 font-secondary nasted">
+            Event Details
+          </li>
+        </ul>
+        <p class="text-lighten mb-0">
+          Our courses offer a good compromise between the continuous assessment
+          favoured by some universities and the emphasis placed on final exams
+          by others.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /page title -->
+
+<!-- event single -->
+<section class="section-sm">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h2 class="section-title">{{event.title}}</h2>
+      </div>
+      <!-- event image -->
+      <div class="col-12 mb-4">
+        <img
+          src="{{ event.img.url }}"
+          alt="event thumb"
+          class="img-fluid w-100"
+        />
+      </div>
+    </div>
+    <!-- event info -->
+    <div class="row align-items-center mb-5">
+      <div class="col-lg-9">
+        <ul class="list-inline">
+          <li class="list-inline-item mr-xl-5 mr-4 mb-3 mb-lg-0">
+            <div class="d-flex align-items-center">
+              <i class="ti-location-pin text-primary icon-md mr-2"></i>
+              <div class="text-left">
+                <h6 class="mb-0">LOCATION</h6>
+                <p class="mb-0">{{event.location}}</p>
+              </div>
+            </div>
+          </li>
+          <li class="list-inline-item mr-xl-5 mr-4 mb-3 mb-lg-0">
+            <div class="d-flex align-items-center">
+              <i class="ti-calendar text-primary icon-md mr-2"></i>
+              <div class="text-left">
+                <h6 class="mb-0">DATE</h6>
+                <p class="mb-0">{{event.date|date:"d/m/Y"}}</p>
+              </div>
+            </div>
+          </li>
+          <li class="list-inline-item mr-xl-5 mr-4 mb-3 mb-lg-0">
+            <div class="d-flex align-items-center">
+              <i class="ti-time text-primary icon-md mr-2"></i>
+              <div class="text-left">
+                <h6 class="mb-0">TIME</h6>
+                <p class="mb-0">{{event.time|time:"f a"}}</p>
+              </div>
+            </div>
+          </li>
+          <li class="list-inline-item mr-xl-5 mr-4 mb-3 mb-lg-0">
+            <div class="d-flex align-items-center">
+              <i class="ti-wallet text-primary icon-md mr-2"></i>
+              <div class="text-left">
+                <h6 class="mb-0">ENTRY FEE</h6>
+                <p class="mb-0">From: ${{event.money}}</p>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="col-lg-3 text-lg-right text-left">
+        <a href="{% url 'event_single' event.slug %}" class="btn btn-primary">Apply now</a>
+      </div>
+      <!-- border -->
+      <div class="col-12 mt-4 order-4">
+        <div class="border-bottom border-primary"></div>
+      </div>
+    </div>
+    <!-- event details -->
+    <div class="row">
+      <div class="col-12 mb-50">
+        <h3>About Event</h3>
+        <p>
+          {{event.desc}}
+        </p>
+      </div>
+    </div>
+    <!-- event speakers -->
+    <div class="row">
+      <div class="col-12">
+        <h3 class="mb-4">Event Speakers</h3>
+      </div>
+      
+      {% for i in event.teachers.all %}
+      <!-- speakers -->
+      <div class="col-lg-3 col-sm-6 mb-4 mb-lg-0">
+        <div class="media">
+          {% comment %} <img
+            class="mr-3 img-fluid"
+            src="{{i.img.url}}"
+            alt="speaker"
+          /> {% endcomment %}
+          <div class="media-body">
+            <h4 class="mt-0"><a class="teacher-tag" href="{% url 'teacher_single' i.slug %}">{{i.first_name}} {{i.last_name}}</a></h4>
+            <h6 class="text-color"><a class="teacher-tag" href="{% url 'courses_slug' i.category.slug %}">{{i.category}}</a></h6>
+            <p>
+              {{ i.desc }}
+            </p>
+          </div>
+        </div>
+      </div> 
+      {% endfor %}
+      
+      
+      <!-- border -->
+      <div class="col-12 mt-4 order-4">
+        <div class="border-bottom border-primary"></div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /event single -->
+
+<!-- more event -->
+<section class="section pt-0">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h2 class="section-title">More Events</h2>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      
+      {% for i in data %}
+      
+      <!-- event -->
+      <div class="col-lg-4 col-sm-6 mb-5 mb-lg-0">
+        <div class="card border-0 rounded-0 hover-shadow">
+          <div class="card-img position-relative">
+            <img
+              class="card-img-top rounded-0"
+              src="{{i.cover_img.url}}"
+              alt="event thumb"
+            />
+            <div class="card-date">{{i.date|date:"M, d"}}</div>
+          </div>
+          <div class="card-body">
+            <!-- location -->
+            <p>
+              <i class="ti-location-pin text-primary mr-2"></i>{{i.location}}
+            </p>
+            <a href="{% url 'event_single' i.slug %}"
+              ><h4 class="card-title">
+                {{i.title}}
+              </h4></a
+            >
+          </div>
+        </div>
+      </div>
+      
+      {% endfor %}
+      
+    </div>
+  </div>
+</section>
+<!-- /more event -->
+
+{% endblock main %}

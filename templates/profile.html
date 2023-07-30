@@ -1,0 +1,119 @@
+{% extends 'base.html' %} {% load static %} {% block style %}
+<style>
+  .forgot-password {
+    float: right;
+  }
+</style>
+{% endblock style %} {% block main %}
+
+<!-- page title -->
+<section
+  class="page-title-section overlay"
+  data-background="{% static 'images/backgrounds/page-title.jpg' %}"
+>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <ul class="list-inline custom-breadcrumb mb-2">
+          <li class="list-inline-item">
+            <a class="h2 text-primary font-secondary" href="{% url 'home' %}"
+              >Home</a
+            >
+          </li>
+          <li class="list-inline-item text-white h3 font-secondary nasted">
+            Login
+          </li>
+        </ul>
+        <p class="text-lighten mb-0">
+          Our courses offer a good compromise between the continuous assessment
+          favoured by some universities and the emphasis placed on final exams
+          by others.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /page title -->
+
+<!-- Profile -->
+
+<section class="ftco-section ftco-no-pt">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3">
+        <div class="user-profile-side-bar sidebar-wrap">
+          <div class="sidebar-box p-4 about text-center ftco-animate">
+            <h2 class="heading mb-4">About Me</h2>
+            <img
+              src="{{request.user.profile.img.url}}"
+              class="img-fluid"
+              alt="Colorlib Template"
+            />
+            <div class="text pt-4">
+              <p> 
+                <strong>{{ request.user.last_name }} {{ request.user.first_name }}</strong>
+                {% if request.user.profile.short_desc == none %}
+                <p>
+                  Write a description...
+                </p>
+                {% else %}
+                <p>
+                  {{ request.user.profile.short_desc }}
+                </p>
+                {% endif %}
+              </p>
+            </div>
+          </div>
+
+          <div class="sidebar-box ftco-animate user-profile">
+              <a href="{% url 'create_blog' %}" class="btn btn-hover-color py-2">Create Blog</a>
+          </div>
+
+        </div>
+      </div>
+      <div class="col-lg-9">
+        <div class="row">
+            <div class="col-md-12 heading-section ftco-animate">
+                <h2 class="mb-4"><span>My Blogs</span></h2>
+            </div>
+        </div>
+        <div class="row">
+            
+                    
+                  {% for i in blogs_data %}
+      
+                  <!-- blog post -->
+                  <article class="col-lg-4 col-sm-6 mb-5">
+                    <div class="card rounded-0 border-bottom border-primary border-top-0 border-left-0 border-right-0 hover-shadow">
+                      <img class="card-img-top rounded-0" src="{{i.cover_img.url}}" alt="Post thumb">
+                      <div class="card-body">
+                        <!-- post meta -->
+                        <ul class="list-inline mb-3">
+                          <!-- post date -->
+                          <li class="list-inline-item mr-3 ml-0">{{i.create_date|date:"M d, Y"}}</li>
+                          <!-- author -->
+                          <li class="list-inline-item mr-3 ml-0">By {{i.user}}</li>
+                        </ul>
+                        <a href="{% url 'blog_single' i.slug %}">
+                          <h4 class="card-title">{{i.title}}</h4>
+                        </a>
+                        <p class="card-text">{{i.short_desc}}</p>
+                        <a href="{% url 'edit_blog' i.slug %}" class="btn btn-hover-color py-2">edit</a><br>
+                        <a href="{% url 'blog_single' i.slug %}" class="btn btn-hover-color py-2">read more</a>
+
+                      </div>
+                    </div>
+                  </article>
+                  
+                  {% endfor %}
+                    
+                
+            </div>
+        </div>
+    </div>
+  </div>
+</section>
+
+<!-- /Profile -->
+
+{% endblock main %}

@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+<style>
+  .forgot-password{
+    float: right;
+  }  
+</style>
+{% endblock style %}
+
+{% block main %}
+
+<!-- page title -->
+<section class="page-title-section overlay" data-background="{% static 'images/backgrounds/page-title.jpg' %}">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <ul class="list-inline custom-breadcrumb mb-2">
+          <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="{% url 'home' %}">Home</a></li>
+          <li class="list-inline-item text-white h3 font-secondary nasted">Login</li>
+        </ul>
+        <p class="text-lighten mb-0">Our courses offer a good compromise between the continuous assessment favoured by some universities and the emphasis placed on final exams by others.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /page title -->
+
+<!-- Login -->
+<section class="section bg-gray">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <h2 class="section-title">Login</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-7 mb-4 mb-lg-0">
+        <form action="" method="POST">
+          {% csrf_token %}
+          
+          {% if messages %}
+              {% for message in messages %}
+                  <div class="alert alert-danger" role="alert">
+                      {{message.message}}
+                  </div>
+              {% endfor %}
+          {% endif %}
+
+          <div class="form-group">
+              <input type="text" class="form-control" placeholder="Username" name="username">
+          </div>
+          <div class="form-group">
+              <input type="password" class="form-control" placeholder="Password" name="password">
+          </div>
+          <div class="form-group">
+              <input type="submit" value="Login" class="btn btn-primary py-3 px-5">
+              <a href="{% url 'forget_password' %}" class="forgot-password">Forgot password?</a>
+          </div>
+          <div class="form-group">
+              <a href="{% url 'register' %}" class="">Don't have an account? Sign up</a>
+          </div>
+          <div class="form-group center">
+              <a href="#" class="social"><i class="fa fa-facebook social-login fb-color"></i></a>
+              <a href="#" class="social"><i class="fa fa-google-plus social-login google-color"></i></a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /Login -->
+
+
+{% endblock main %}
+
+
